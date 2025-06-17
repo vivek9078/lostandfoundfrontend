@@ -42,7 +42,7 @@ foundForm.addEventListener('submit', async (e) => {
   };
 
   try {
-    const res = await fetch('http://localhost:3000/api/found', {
+    const res = await fetch('https://lostandfoundbackend-trb4.onrender.com', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -72,7 +72,7 @@ lostForm.addEventListener('submit', async (e) => {
   };
 
   try {
-    const res = await fetch('http://localhost:3000/api/search', {
+    const res = await fetch('https://lostandfoundbackend-trb4.onrender.com', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
