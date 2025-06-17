@@ -42,14 +42,14 @@ foundForm.addEventListener('submit', async (e) => {
   };
 
   try {
-    const res = await fetch('https://lostandfoundbackend-trb4.onrender.com', {
+    const res = await fetch('https://lostandfoundbackend-trb4.onrender.com/api/found', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
 
     if (res.ok) {
-      alert('✅ Found item registered successfully! Check email to verify.');
+      alert('✅ Found item registered successfully! Check your email to verify.');
       foundForm.reset();
     } else {
       alert('❌ Failed to register found item.');
@@ -72,7 +72,7 @@ lostForm.addEventListener('submit', async (e) => {
   };
 
   try {
-    const res = await fetch('https://lostandfoundbackend-trb4.onrender.com', {
+    const res = await fetch('https://lostandfoundbackend-trb4.onrender.com/api/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
