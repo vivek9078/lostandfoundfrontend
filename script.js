@@ -89,10 +89,45 @@ lostForm.addEventListener('submit', async (e) => {
           <strong>Color:</strong> ${item.color}<br>
           <strong>Brand:</strong> ${item.brand || "N/A"}<br>
           <strong>Found at:</strong> ${item.location}<br>
-          <strong>Contact:</strong> ${item.email}<br><hr>
+          <strong>Contact:</strong> ${item.email}<br>
+          <button class="claimBtn" data-id="${item.id}">✅ Claim This Item</button>
+          <hr>
         `;
         searchResults.appendChild(div);
       });
+
+      // Attach click handler to all claim buttons
+      document.querySelectorAll('.claimBtn').forEach(button => {
+        button.addEventListener('click', async () => {
+          const itemId = button.getAttribute('data-id');
+          const claimerEmail = prompt('Enter your email to claim this item:');
+
+          if (!claimerEmail || !claimerEmail.includes('@')) {
+            return alert('❌ Please enter a valid email.');
+          }
+
+          try {
+            const res = await fetch(`https://lostandfoundbackend-trb4.onrender.com/api/claim/${itemId}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: claimerEmail })
+            });
+
+            const result = await res.json();
+
+            if (res.ok) {
+              alert('✅ Item claimed successfully!');
+              button.parentElement.remove(); // remove this claimed item from UI
+            } else {
+              alert(`❌ ${result.message}`);
+            }
+          } catch (err) {
+            console.error(err);
+            alert('🚫 Error claiming item. Try again later.');
+          }
+        });
+      });
+
     } else {
       searchResults.innerHTML = "<div>No matching items found.</div>";
     }
